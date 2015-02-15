@@ -9,7 +9,7 @@ class RPCBlockingListener(object):
     """This class connects to RabbitMQ, binds an 'exchange' and 'routing_key', and listens for \
     new messages. The 'request_action' parameter is a function that receives a single parameter \
     of the incoming message body as a dictionary. This function is used to perform any custom \
-    operations, and return another dictionary. The resulting dictionary becomes the message body \
+    operations, and returns another dictionary. The resulting dictionary becomes the message body \
     that is sent back to the sender via the `reply_to` queue. The 'reconnect_attempts' parameter \
     is the number of times you would like the listener to attempt reconnection to RabbitMQ should \
     the connection be lost after it starts to consume messages.
