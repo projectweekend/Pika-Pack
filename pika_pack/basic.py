@@ -3,6 +3,9 @@ import pika
 
 
 class BasicProducer(object):
+    """This class connects to RabbitMQ, binds an 'exchange' then allows you to send \
+    a message to a 'routing_key' using the 'send' method. It does not wait for any \
+    response body message, just an acknowledgement it was received."""
 
     def __init__(self, rabbit_url, exchange, exchange_type):
         self._rabbit_url = rabbit_url
