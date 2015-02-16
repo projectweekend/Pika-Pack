@@ -56,3 +56,5 @@ target/
 # Sublime stuff
 *.sublime-project
 *.sublime-workspace
+
+MANIFEST
