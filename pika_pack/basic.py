@@ -55,9 +55,10 @@ class Consumer(object):
     messages. It does not respond to the sender of the message, it only sends an \
     acknowledgement."""
 
-    def __init__(self, rabbit_url, exchange, routing_key, request_action, reconnect_attempts=5):
+    def __init__(self, rabbit_url, exchange, exchange_type, routing_key, request_action, reconnect_attempts=5):
         self._rabbit_url = rabbit_url
         self._exchange = exchange
+        self._exchange_type = exchange_type
         self._routing_key = routing_key
         self._request_action = request_action
         self._reconnect_attempts = reconnect_attempts
@@ -82,9 +83,9 @@ class Consumer(object):
 
         result = self._channel.queue_declare(
             auto_delete=True,
-            arguments={'x-message-ttl': 10000})
+            arguments={'x-message-ttl': 30000})
 
-        self._channel.exchange_declare(exchange=self._exchange, type='direct')
+        self._channel.exchange_declare(exchange=self._exchange, type=self._exchange_type)
         self._channel.queue_bind(
             queue=result.method.queue,
             exchange=self._exchange,
@@ -107,3 +108,31 @@ class Consumer(object):
             self._reconnect()
             self._setup_channel()
             self.start()
+
+
+class Receiver(Consumer):
+    """This class receives messages from a 'direct' exchange, where only one consumer \
+    will receive the message"""
+
+    def __init__(self, rabbit_url, exchange, routing_key, request_action, reconnect_attempts=5):
+        super(Receiver, self).__init__(
+            rabbit_url=rabbit_url,
+            exchange=exchange,
+            exchange_type='direct',
+            routing_key=routing_key,
+            request_action=request_action,
+            reconnect_attempts=reconnect_attempts)
+
+
+class Listener(Consumer):
+    """This class receives messages from a 'fanout' exchange, where all consumers \
+    will receive the message"""
+
+    def __init__(self, rabbit_url, exchange, routing_key, request_action, reconnect_attempts=5):
+        super(Listener, self).__init__(
+            rabbit_url=rabbit_url,
+            exchange=exchange,
+            exchange_type='fanout',
+            routing_key=routing_key,
+            request_action=request_action,
+            reconnect_attempts=reconnect_attempts)
