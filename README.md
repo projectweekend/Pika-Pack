@@ -30,3 +30,23 @@ rpc_consumer = RPCBlockingConsumer(
 
 rpc_consumer.start()
 ```
+
+
+### RPCBlockingClient
+
+This class connects to RabbitMQ, binds an 'exchange', then allows you to send a `message` to a `routing_key` using the `call` method. This method will block until it receives a response message from the RPC queue. The `call` method returns a dictionary representing the received message.
+
+**Example:**
+```python
+RABBIT_URL = 'rabbit server connection URL'
+EXCHANGE = 'name_of_exchange'
+
+
+rpc_client = RPCBlockingClient(rabbit_url=RABBIT_URL, exchange=EXCHANGE)
+
+message = {
+    'body': 'Some message body'
+}
+# response will be a dictionary of the response message from RPCBlockingConsumer
+response = rpc_client.call(routing_key='name_of_routing_key', message=message)
+```
