@@ -53,19 +53,65 @@ response = rpc_client.call(routing_key='name_of_routing_key', message=message)
 
 ### Sender
 
-TODO
+This class sends messages to a 'direct' exchange, where only one consumer will receive the message.
+
+**Example:**
+```python
+from pika_pack import Sender
+
+
+RABBIT_URL = 'rabbit server connection URL'
+EXCHANGE = 'name_of_exchange'
+
+
+sender = Sender(rabbit_url=RABBIT_URL, exchange=EXCHANGE)
+
+message = {
+    'body': 'Some message body'
+}
+
+sender.send('some_routing_key', message)
+```
 
 
 ### Broadcaster
 
-TODO
+This class sends messages to a 'fanout' exchange, where all consumers will receive the message.
+
+**Example:**
+```python
+from pika_pack import Broadcaster
+
+
+RABBIT_URL = 'rabbit server connection URL'
+EXCHANGE = 'name_of_exchange'
+
+
+broadcaster = Broadcaster(rabbit_url=RABBIT_URL, exchange=EXCHANGE)
+
+message = {
+    'body': 'Some message body'
+}
+
+broadcaster.send('some_routing_key', message)
+```
 
 
 ### Receiver
 
-TODO
+This class receives messages from a 'direct' exchange, where only one consumer will receive the message.
+
+**Example:**
+```python
+from pika_pack import Receiver
+```
 
 
 ### Listener
 
-TODO
+This class receives messages from a 'fanout' exchange, where all consumers will receive the message.
+
+**Example:**
+```python
+from pika_pack import Listener
+```
