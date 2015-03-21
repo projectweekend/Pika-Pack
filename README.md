@@ -104,6 +104,28 @@ This class receives messages from a 'direct' exchange, where only one consumer w
 **Example:**
 ```python
 from pika_pack import Receiver
+
+
+RABBIT_URL = 'rabbit server connection URL'
+EXCHANGE = 'name_of_exchange'
+ROUTING_KEY = 'some_routing_key'
+RECONNECT_ATTEMPTS = 3
+
+
+def my_custom_action(message):
+    # do something with message dictionary this
+    # function doesn't need to return anything
+    pass
+
+
+receiver = Receiver(
+    rabbit_url=RABBIT_URL,
+    exchange=EXCHANGE,
+    routing_key=ROUTING_KEY,
+    request_action=my_custom_action,
+    reconnect_attempts=RECONNECT_ATTEMPTS)
+
+receiver.start()
 ```
 
 
@@ -114,4 +136,26 @@ This class receives messages from a 'fanout' exchange, where all consumers will 
 **Example:**
 ```python
 from pika_pack import Listener
+
+
+RABBIT_URL = 'rabbit server connection URL'
+EXCHANGE = 'name_of_exchange'
+ROUTING_KEY = 'some_routing_key'
+RECONNECT_ATTEMPTS = 3
+
+
+def my_custom_action(message):
+    # do something with message dictionary this
+    # function doesn't need to return anything
+    pass
+
+
+listener = Listener(
+    rabbit_url=RABBIT_URL,
+    exchange=EXCHANGE,
+    routing_key=ROUTING_KEY,
+    request_action=my_custom_action,
+    reconnect_attempts=RECONNECT_ATTEMPTS)
+
+listener.start()
 ```
