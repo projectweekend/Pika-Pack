@@ -1,0 +1,11 @@
+rabbit:
+    image: rabbitmq
+web:
+    build: .
+    command: python test.py
+    volumes:
+        - ./test.py:/src/test.py
+    environment:
+        TEST: test
+    links:
+        - rabbit
