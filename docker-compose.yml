@@ -1,6 +1,6 @@
 rabbit:
     image: rabbitmq
-web:
+test:
     build: .
     command: python test.py
     volumes:
