@@ -1,10 +1,12 @@
 rabbit:
     image: rabbitmq
+    ports:
+        - "5672:5672"
 test:
     build: .
-    command: python test.py
+    command: python
     volumes:
-        - ./test.py:/src/test.py
+        - ./tests:/src/tests
     environment:
         TEST: test
     links:
