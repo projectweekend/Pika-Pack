@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='Pika-Pack',
-    version='1.0.4',
+    version='2.0.0',
     author='Brian Hines',
     author_email='brian@projectweekend.net',
     packages=['pika_pack'],
