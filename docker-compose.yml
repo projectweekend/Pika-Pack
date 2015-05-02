@@ -4,9 +4,9 @@ rabbit:
         - "5672:5672"
 test:
     build: .
-    command: python
     volumes:
-        - ./tests:/src/tests
+        - ./tests:/src
+        - ./pika_pack:/src/pika_pack
     environment:
         TEST: test
     links:
